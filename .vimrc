@@ -1,5 +1,5 @@
 syntax on
-
+colorscheme ron
 
 set tabstop=4
 set autoindent
@@ -120,7 +120,7 @@ NeoBundle 'Shougo/neobundle.vim'
 " --------------------------------------ここにプラグインを追加していく------------------------------------------
 
 " データを簡単に操作できる(ファイル一覧見たり・・)
-"NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite.vim'
 
 " ファイル・ディレクトリツリーを左側に表示できる
 " 使い方 :NERDTree
@@ -165,7 +165,7 @@ NeoBundle 'therubymug/vim-pyte'
 NeoBundle 'tomasr/molokai'
 
 " カラースキーム表示確認
-"NeoBundle 'ujihisa/unite-colorscheme'
+NeoBundle 'ujihisa/unite-colorscheme'
 
 
 call neobundle#end()
