@@ -10,6 +10,9 @@ set showmatch " 対応する括弧などをハイライト表示
 set matchpairs& matchpairs+=<:> " 対応括弧に'<'と'>'のペアを追加
 set hlsearch " 検索結果をハイライト表示
 
+
+let NERDTreeShowHidden = 1
+
 " release autogroup in MyAutoCmd
 augroup MyAutoCmd
     autocmd!
@@ -39,6 +42,11 @@ inoremap <C-l> <Right>
 " カーソル前の文字削除
 inoremap <silent> hh <C-g>u<C-h>
 
+nnoremap qq :q<cr>
+
+" ヤンクしたものを検索する
+nnoremap <C-p> /<C-r>"
+
 " 行末、行頭移動
 nnoremap <C-h> 0
 nnoremap <C-l> $
@@ -50,14 +58,26 @@ nnoremap <C-w> viwy
 nmap ,u [unite]
 
 " ------------ファイル操作で活用--------------
-"  ウィンドウ横分割
+" ウィンドウ横分割
 nnoremap ss :vsp<cr>
+" ウィンドウ縦分割
+nnoremap sd :split<cr>
 " 次のウィンドウへ移動
-nnoremap sw <C-w>w
-" 右のタブへ移動
-nnoremap sn gt
-" 左のタブへ移動
-nnoremap sm gT
+nnoremap ww <C-w>w
+" ウィンドウへ左右上下移動
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+
+
+
+
+" 右のタブへ移動(sublimeの設定と同じにしたい)
+nnoremap <C-m> gt
+" 左のタブへ移動(sublimeの設定と同じにしたい)
+nnoremap <C-n> gT
 
 "" ---【Unite.vim関連】---
 
@@ -124,6 +144,8 @@ NeoBundle 'Shougo/unite.vim'
 
 " ファイル・ディレクトリツリーを左側に表示できる
 " 使い方 :NERDTree
+" ショートカット| 機能
+" CD | カレントバッファに移動 
 NeoBundle 'scrooloose/nerdtree'
 
 NeoBundle 'Shougo/vimproc', {
