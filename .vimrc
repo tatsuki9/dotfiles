@@ -44,15 +44,16 @@ inoremap <silent> hh <C-g>u<C-h>
 
 nnoremap qq :q<cr>
 
+" 括弧移動
+nnoremap <C-b> <ESC>%i
+inoremap <C-b> <ESC>%i
+
 " ヤンクしたものを検索する
 nnoremap <C-p> /<C-r>"
 
-" 行末、行頭移動
-nnoremap <C-h> 0
-nnoremap <C-l> $
 
 " 単語コピー
-nnoremap <C-w> viwy
+nnoremap <C-o> viwy
 
 "prefix keyの設定
 nmap ,u [unite]
@@ -65,14 +66,14 @@ nnoremap sd :split<cr>
 " 次のウィンドウへ移動
 nnoremap ww <C-w>w
 " ウィンドウへ左右上下移動
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nnoremap hh <C-w>h
+nnoremap jj <C-w>j
+nnoremap kk <C-w>k
+nnoremap ll <C-w>l
 
-
-
-
+"行末、行頭移動 
+nnoremap 0 $
+nnoremap 9 0
 
 " 右のタブへ移動(sublimeの設定と同じにしたい)
 nnoremap <C-m> gt
@@ -127,6 +128,7 @@ nnoremap <S-Down>  <C-w>+<CR>
 
 " vi互換を無効化する。vi互換を有効化していると、Vimに与える影響が大きくなり、ほとんどのVimプラグインが使えなくなる。なので無効化
 set nocompatible
+set tags+=~/.tags            
 if has('vim_starting')
     " bundleで管理するディレクトリを指定。追加するプラグインは全てこの指定しているディレクトリ以下に入る
     set runtimepath+=~/.vim/bundle/neobundle.vim
@@ -145,7 +147,8 @@ NeoBundle 'Shougo/unite.vim'
 " ファイル・ディレクトリツリーを左側に表示できる
 " 使い方 :NERDTree
 " ショートカット| 機能
-" CD | カレントバッファに移動 
+" CD : カレントバッファに移動
+" gi : 水平分割でファイルを開く    
 NeoBundle 'scrooloose/nerdtree'
 
 NeoBundle 'Shougo/vimproc', {
