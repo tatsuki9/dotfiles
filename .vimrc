@@ -9,7 +9,8 @@ set number " 行番号の表示
 set showmatch " 対応する括弧などをハイライト表示
 set matchpairs& matchpairs+=<:> " 対応括弧に'<'と'>'のペアを追加
 set hlsearch " 検索結果をハイライト表示
-
+set modifiable
+set write
 
 let NERDTreeShowHidden = 1
 
@@ -44,15 +45,16 @@ inoremap <silent> hh <C-g>u<C-h>
 
 nnoremap qq :q<cr>
 
+" 括弧移動
+nnoremap <C-b> <ESC>%i
+inoremap <C-b> <ESC>%i
+
 " ヤンクしたものを検索する
 nnoremap <C-p> /<C-r>"
 
-" 行末、行頭移動
-nnoremap <C-h> 0
-nnoremap <C-l> $
 
 " 単語コピー
-nnoremap <C-w> viwy
+nnoremap <C-o> viwy
 
 "prefix keyの設定
 nmap ,u [unite]
@@ -65,19 +67,21 @@ nnoremap sd :split<cr>
 " 次のウィンドウへ移動
 nnoremap ww <C-w>w
 " ウィンドウへ左右上下移動
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nnoremap hh <C-w>h
+nnoremap jj <C-w>j
+nnoremap kk <C-w>k
+nnoremap ll <C-w>l
 
-
-
-
+"行末、行頭移動 
+nnoremap 0 $
+nnoremap 9 0
 
 " 右のタブへ移動(sublimeの設定と同じにしたい)
 nnoremap <C-m> gt
 " 左のタブへ移動(sublimeの設定と同じにしたい)
 nnoremap <C-n> gT
+
+
 
 "" ---【Unite.vim関連】---
 
@@ -85,7 +89,35 @@ nnoremap <C-n> gT
 nnoremap <silent> [unite]f :<C-u>Unite file<CR>
 " バッファ一覧
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+
 "------------------------
+
+
+
+"" --- 【NERDTree.vim関連】---
+" command(ここctrlにしたい)+ eでnerdtreeを開けるショートカット
+nnoremap <silent><C-r> :QuickRuntoggle<cr>
+" NERDTree自体をトグル表示
+nnoremap <silent> ,n :NERDTreeToggle<CR>
+" 開いているファイルバッファにcdで移動し、そこのファイル一覧を表示
+nnoremap <silent> ,N :CD<CR>:NERDTree<CR>
+
+let NERDTreeShowHidden=1
+command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
+function! s:ChangeCurrentDir(directory, bang)
+    if a:directory == ''
+        lcd %:p:h
+    else
+        execute 'lcd' . a:directory
+    endif
+
+    if a:bang == ''
+        pwd
+    endif
+endfunction
+"------------------------
+
+
 
 " grep検索(カレントディレクトリ以下),検索後はバッファに保存してあるので、再検索は速い(,r)
 nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
@@ -107,10 +139,6 @@ nnoremap g# g#zz
 nnoremap j gj
 nnoremap k gk
 
-" command(ここctrlにしたい)+ eでnerdtreeを開けるショートカット
-nnoremap <silent><C-e> :NERDTreeToggle<CR>
-" command(ここctrlにしたい)+ eでnerdtreeを開けるショートカット
-nnoremap <silent><C-r> :QuickRuntoggle<cr>
 
 " vを二回で行末まで選択
 vnoremap v $h
@@ -127,6 +155,7 @@ nnoremap <S-Down>  <C-w>+<CR>
 
 " vi互換を無効化する。vi互換を有効化していると、Vimに与える影響が大きくなり、ほとんどのVimプラグインが使えなくなる。なので無効化
 set nocompatible
+set tags+=~/.tags            
 if has('vim_starting')
     " bundleで管理するディレクトリを指定。追加するプラグインは全てこの指定しているディレクトリ以下に入る
     set runtimepath+=~/.vim/bundle/neobundle.vim
@@ -145,7 +174,8 @@ NeoBundle 'Shougo/unite.vim'
 " ファイル・ディレクトリツリーを左側に表示できる
 " 使い方 :NERDTree
 " ショートカット| 機能
-" CD | カレントバッファに移動 
+" CD : カレントバッファに移動
+" gi : 水平分割でファイルを開く    
 NeoBundle 'scrooloose/nerdtree'
 
 NeoBundle 'Shougo/vimproc', {
@@ -159,6 +189,11 @@ NeoBundle 'Shougo/vimproc', {
 
 NeoBundle 'Shougo/vimfiler.vim'
 "NeoBundle 'osyo-manga/unite-qfixhowm'
+
+"PHP補完"
+NeoBundle 'Shougo/neosnippet.vim'
+"Uniteで最近使ったファイル一覧を開けるようにする"
+NeoBundle 'Shougo/neomru.vim'
 
 " 実行確認(遅延ロード)
 
