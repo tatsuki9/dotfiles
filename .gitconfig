@@ -1,7 +1,10 @@
 [alias]
-co = checkout
-st = status
-br = branch
+    co = checkout
+    st = status
+    br = branch
 
 [color]
-ui = auto
+    ui = auto
+[user]
+	name = tatsuki.nakagawa
+	email = tatsukinakagawa14@gmail.com
