@@ -1,0 +1,4 @@
+alias ll='ls -l'
+export PATH=/usr/local:$PATH
+# brewプログラムの読み込み
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"")"
